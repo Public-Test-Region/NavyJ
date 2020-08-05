@@ -1,0 +1,25 @@
+{
+
+  "name": "Mari",
+
+  "description": "gotcha",
+
+  "version": "0.0.0",
+
+  "main": "index.js",
+
+  "scripts": {
+
+    "start": "node index.js"
+
+  },
+
+  "dependencies": {
+
+    "discord.js": "12.2.0",
+
+    "request": "2.81.0"
+
+  }
+
+}
