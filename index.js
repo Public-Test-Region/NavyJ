@@ -2,7 +2,7 @@ const fs = require('fs');
 const Discord = require(`discord.js`);
 const config = require("./config/config.json");
 let prefix = config.prefix;
-let jeuxgratuits = require("./configuration/jeuxgratuits.json");
+let jeuxgratuits = require("./configuration/data/jeuxgratuits.json");
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
