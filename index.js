@@ -13,10 +13,6 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-client.once('ready', () => {
-  console.log('Je suis opérationnelle !');
-});
-
 client.on('ready', () => {
     RdmColor = Math.floor(Math.random() * 16777214) + 1;
     console.log(`Je suis connecté en tant que ${client.user.username} !`)
