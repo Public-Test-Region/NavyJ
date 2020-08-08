@@ -11,18 +11,18 @@ module.exports = {
 		const { commands } = message.client;
 
 		if (!args.length) {
-			data.push('Here\'s a list of all my commands:');
+			data.push('Voici une liste de toutes mes commandes:');
 			data.push(commands.map(command => command.name).join(', '));
-			data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
+			data.push(`\nVous pouvez envoyer \`${prefix}help [nom de la commande]\` pour avoir des informations sur une commande spécifique`);
 
 			return message.author.send(data, { split: true })
 				.then(() => {
 					if (message.channel.type === 'dm') return;
-					message.reply('I\'ve sent you a DM with all my commands!');
+					message.reply('Je vous ai envoyé un message privé avec toutes mes commandes!');
 				})
 				.catch(error => {
 					console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
-					message.reply('it seems like I can\'t DM you!');
+					message.reply('il semble que je ne puisse pas vous DM !');
 				});
 		}
 
@@ -30,12 +30,12 @@ module.exports = {
 		const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
 		if (!command) {
-			return message.reply('that\'s not a valid command!');
+			return message.reply('Ce n\'est pas une commande valide');
 		}
 
 		data.push(`**Name:** ${command.name}`);
 
-		if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(', ')}`);
+		if (command.aliases) data.push(`**Alias:** ${command.aliases.join(', ')}`);
 		if (command.description) data.push(`**Description:** ${command.description}`);
 		if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
 
