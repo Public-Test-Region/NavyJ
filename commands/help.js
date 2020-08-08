@@ -33,13 +33,13 @@ module.exports = {
 			return message.reply('Ce n\'est pas une commande valide');
 		}
 
-		data.push(`**Name:** ${command.name}`);
+		data.push(`**Nom:** ${command.name}`);
 
 		if (command.aliases) data.push(`**Alias:** ${command.aliases.join(', ')}`);
 		if (command.description) data.push(`**Description:** ${command.description}`);
 		if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
 
-		data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
+		data.push(`**Temps minimum entre chaque commandes:** ${command.cooldown || 3} seconde(s)`);
 
 		message.channel.send(data, { split: true });
 	},
