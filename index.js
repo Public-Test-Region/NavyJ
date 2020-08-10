@@ -2,7 +2,7 @@ const fs = require('fs');
 const Discord = require(`discord.js`);
 const config = require("./config/config.json");
 let prefix = config.prefix;
-let jeuxgratuits = require("./configuration/jeuxgratuits.json");
+let jeuxgratuits = require("./config/data/jeuxgratuits.json");
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -51,10 +51,11 @@ client.on('message', msg => {
   const args = msg.content.slice(prefix.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
 
-  if (!client.commands.has(commandName)) return;
-
-  const command = client.commands.get(commandName);
-
+  const command = client.commands.get(commandName)
+      client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+  
+  if (!command) return;
+  
   if (command.guildOnly && msg.channel.type !== 'text') {
     return msg.reply('Je ne peux pas éxecuter cette commande dans les messages privés !');
   }
