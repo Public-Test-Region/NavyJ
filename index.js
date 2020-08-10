@@ -19,10 +19,9 @@ client.on('ready', () => {
   console.log(`Je suis connecté en tant que ${client.user.username} !`)
   client.user.setPresence({
     activity: {
-      name: 'son village',
+      name: 'le village',
       type: "WATCHING",
-    },
-    status: "idle"
+    }
   });
 });
 
@@ -79,7 +78,7 @@ client.on('message', msg => {
 
 client.on('message', msg => {
   if (msg.content === `${prefix}`) {
-    msg.channel.send(`Votre commande n'est pas inscrite dans le fichier des sudoers. Cet incident sera signalé.`);
+    msg.channel.send(`Votre commande n'est pas dans le livre de la vie malheureusement...`);
   }
 });
 
@@ -176,10 +175,10 @@ client.on('message', msg => {
           title: "Bonjour, voici les types de notifications que vous pouvez activer ci-dessous. Cliquez simplement sur la réaction qui correspond à votre type de notification pour l'activer.\n­",
           fields: [{
             name: "1️⃣ Notification de jeux gratuits",
-            value: "Tapez `" + prefix + "notification JeuxG`pour l'activer ou le désactiver.\nSoyez prévenue à chaque sortie de jeux gratuits !\nChaque utilisateur peut colaborer pour annoncer les jeux gratuits.\n­"
+            value: "Tapez `" + prefix + "notification JeuxG` pour l'activer ou le désactiver.\nSoyez prévenue à chaque sortie de jeux gratuits !\nChaque utilisateur peut colaborer pour annoncer les jeux gratuits.\n­"
           }, {
             name: "~~2️⃣ Notification de jeux joués sur LCD~~",
-            value: "Tapez `" + prefix + "notification Jeux`pour l'activer ou le désactiver.\nCeci n'est pas encore disponible.\n­"
+            value: "Tapez `" + prefix + "notification Jeux` pour l'activer ou le désactiver.\nCeci n'est pas encore disponible.\n­"
           }],
           timestamp: new Date(),
           footer: {
