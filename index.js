@@ -211,7 +211,7 @@ client.on('message', msg => {
     }
     // accepted
     if (msg.content.toLowerCase().startsWith(prefix + "acc")) {
-        if (msg.author.id !== "448052818314526721") return;
+        if (msg.author.id !== "448052818314526721" || msg.author.id !== "278211495915945985") return;
         const arg = msg.content.slice(prefix.length).split(' ');
         sug = ""
         for (let i6 = 2; i6 < arg.length; i6++) {
@@ -231,7 +231,7 @@ client.on('message', msg => {
     };
     // refused
     if (msg.content.toLowerCase().startsWith(prefix + "ref")) {
-        if (msg.author.id !== "448052818314526721") return;
+        if (msg.author.id !== "448052818314526721" || msg.author.id !== "278211495915945985") return;
         const arg = msg.content.slice(prefix.length).split(' ');
         sug = ""
         for (let i7 = 2; i7 < arg.length; i7++) {
