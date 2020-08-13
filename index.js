@@ -53,23 +53,23 @@ function notific(type) {
             fs.writeFile("./config/data/jeuxgratuits.json", JSON.stringify(vote), err => {
                 if (err) throw err;
             });
-            msg.channel.send("Je vous l'ai activé !")
+            message.channel.send("Je vous l'ai activé !")
         } else {
             jeuxgratuits[message.author.id] = 0
             fs.writeFile("./config/data/jeuxgratuits.json", JSON.stringify(vote), err => {
                 if (err) throw err;
             });
-            msg.channel.send("Je vous l'ai désactivé !")
+            message.channel.send("Je vous l'ai désactivé !")
         }
     } else { // type === "Jeux"
         // prochainement
     }
 }
 
-client.on('message', msg => {
-    if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+client.on('message', message => {
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-    const args = msg.content.slice(prefix.length).split(/ +/);
+    const args = message.content.slice(prefix.length).split(/ +/);
     const commandName = args.shift().toLowerCase();
 
     const command = client.commands.get(commandName)
@@ -77,75 +77,75 @@ client.on('message', msg => {
 
     if (!command) return;
 
-    if (command.guildOnly && msg.channel.type !== 'text') {
-        return msg.reply('Je ne peux pas éxecuter cette commande dans les messages privés !');
+    if (command.guildOnly && message.channel.type !== 'text') {
+        return message.reply('Je ne peux pas éxecuter cette commande dans les messages privés !');
     }
 
     if (command.args && !args.length) {
-        let reply = `Vous n'avez fourni aucun argument, ${msg.author}!`;
+        let reply = `Vous n'avez fourni aucun argument, ${message.author}!`;
         if (command.usage) {
             reply += `\nL'usage approprié serait : \`${prefix}${command.name} ${command.usage}\``;
         }
 
-        return msg.channel.send(reply);
+        return message.channel.send(reply);
     }
 
     try {
-        command.execute(msg, args, prefix);
+        command.execute(message, args, prefix);
     } catch (error) {
         console.error(error);
-        msg.reply("Il y a eu une erreur en essayant d'exécuter cette commande !");
+        message.reply("Il y a eu une erreur en essayant d'exécuter cette commande !");
     }
 });
 
-client.on('message', msg => {
-    if (msg.content === `${prefix}`) {
-        msg.channel.send(`Votre commande n'est pas dans le livre de la vie malheureusement...`);
+client.on('message', message => {
+    if (message.content === `${prefix}`) {
+        message.channel.send(`Votre commande n'est pas dans le livre de la vie malheureusement...`);
     }
 });
 
 
-client.on('message', msg => {
+client.on('message', message => {
 
     // security
-    if (msg.author.bot) return;
+    if (message.author.bot) return;
 
     // bonjour
     BJ = ["bonjour", "salut", "hei", "guttentag", "hallo", "hola", "buenos días", "hey", "yo ", "yop", "coucou"];
     for (let i = 0; i < BJ.length; i++) {
-        if (msg.content.toLowerCase().includes(BJ[i])) {
-            msg.react("👋")
+        if (message.content.toLowerCase().includes(BJ[i])) {
+            message.react("👋")
         };
     };
 
     // mdr lol ...
     LOL = ["mdr", "lol", "xd", "x)", "😂", "🤣", "😆"]
     for (let i2 = 0; i2 < LOL.length; i2++) {
-        if (msg.content.toLowerCase().includes(LOL[i2])) {
+        if (message.content.toLowerCase().includes(LOL[i2])) {
             hasard = Math.floor(Math.random() * 3) + 1;
             if (hasard === 1) {
-                msg.react("😂");
+                message.react("😂");
             } else if (hasard === 2) {
-                msg.react("🤣");
+                message.react("🤣");
             } else {
-                msg.react("😆");
+                message.react("😆");
             };
         };
     };
 
     // help
-    if (msg.content.toLowerCase().startsWith(prefix + "help") || msg.content.toLowerCase().startsWith(prefix + "aide")) {
-        const args = msg.content.slice(prefix.length).split(' ');
+    if (message.content.toLowerCase().startsWith(prefix + "help") || message.content.toLowerCase().startsWith(prefix + "aide")) {
+        const args = message.content.slice(prefix.length).split(' ');
         if (!args[1]) {
-            msg.channel.send({
+            message.channel.send({
                 embed: {
                     color: RdmColor,
                     thumbnail: {
                         url: "https://i.imgur.com/NN9dwjx.png"
                     },
                     author: {
-                        name: msg.guild.name + " | Commande d'aide",
-                        icon_url: msg.guild.iconURL()
+                        name: message.guild.name + " | Commande d'aide",
+                        icon_url: message.guild.iconURL()
                     },
                     title: "Voici la liste de mes commandes !\n­",
                     fields: [{
@@ -157,24 +157,24 @@ client.on('message', msg => {
                     }],
                     timestamp: new Date(),
                     footer: {
-                        icon_url: msg.author.avatarURL(),
-                        text: "Demande d'aide demandé par " + msg.author.tag
+                        icon_url: message.author.avatarURL(),
+                        text: "Demande d'aide demandé par " + message.author.tag
                     }
                 }
             })
         } else if (args[1].toLowerCase().startsWith("not")) {
-            msg.channel.send({
+            message.channel.send({
                 embed: {
                     color: RdmColor,
                     author: {
-                        name: msg.guild.name + " | Commande de notifications (" + prefix + "notification)\n­",
-                        icon_url: msg.guild.iconURL()
+                        name: message.guild.name + " | Commande de notifications (" + prefix + "notification)\n­",
+                        icon_url: message.guild.iconURL()
                     },
                     title: "Affiche la liste de commande de notification à activer ou désactiver.\n­",
                     timestamp: new Date(),
                     footer: {
-                        icon_url: msg.author.avatarURL(),
-                        text: "Demande d'aide demandé par " + msg.author.tag
+                        icon_url: message.author.avatarURL(),
+                        text: "Demande d'aide demandé par " + message.author.tag
                     }
                 }
             })
@@ -182,8 +182,8 @@ client.on('message', msg => {
     };
 
     // suggestion
-    if (msg.content.toLowerCase().startsWith(prefix + "s")) {
-        const arg = msg.content.slice(prefix.length).split(' ');
+    if (message.content.toLowerCase().startsWith(prefix + "s")) {
+        const arg = message.content.slice(prefix.length).split(' ');
         sug = ""
         for (let i5 = 1; i5 < arg.length; i5++) {
             if (i5 === 1) {
@@ -192,17 +192,17 @@ client.on('message', msg => {
                 sug = sug + " " + arg[i5]
             }
         }
-        msg.react('✅')
+        message.react('✅')
         let jules = client.users.cache.get('448052818314526721')
         let remi = client.users.cache.get('278211495915945985')
-        jules.send(`🔳 Nouvelle suggestion de ${msg.author} : ${sug}`)
-        remi.send(`🔳 Nouvelle suggestion de ${msg.author} : ${sug}`)
-        msg.author.send(`✅ Votre suggestion a bien été reçue, et est actuellement en attente, d'ici peu je vous recontacterai pour vous informer si elle est acceptée ou refusée.`)
+        jules.send(`🔳 Nouvelle suggestion de ${message.author} : ${sug}`)
+        remi.send(`🔳 Nouvelle suggestion de ${message.author} : ${sug}`)
+        message.author.send(`✅ Votre suggestion a bien été reçue, et est actuellement en attente, d'ici peu je vous recontacterai pour vous informer si elle est acceptée ou refusée.`)
     }
     // accepted
-    if (msg.content.toLowerCase().startsWith(prefix + "acc")) {
-        if (msg.author.id !== "448052818314526721" || msg.author.id !== "278211495915945985") return;
-        const arg = msg.content.slice(prefix.length).split(' ');
+    if (message.content.toLowerCase().startsWith(prefix + "acc")) {
+        if (message.author.id !== "448052818314526721" || message.author.id !== "278211495915945985") return;
+        const arg = message.content.slice(prefix.length).split(' ');
         sug = ""
         for (let i6 = 2; i6 < arg.length; i6++) {
             if (i6 === 2) {
@@ -213,16 +213,16 @@ client.on('message', msg => {
         }
         let jules = client.users.cache.get('448052818314526721')
         let remi = client.users.cache.get('278211495915945985')
-        jules.send(`🎭 Vous avez accepté la suggestion de ${msg.author} : ${sug}`)
-        remi.send(`🎭 Vous avez accepté la suggestion de ${msg.author} : ${sug}`)
+        jules.send(`🎭 Vous avez accepté la suggestion de ${message.author} : ${sug}`)
+        remi.send(`🎭 Vous avez accepté la suggestion de ${message.author} : ${sug}`)
         const personne = client.users.cache.get(`${arg[1]}`)
         personne.send(`😍 Félicitations ! Votre suggestion ("${sug}") a été retenue ! Si vous avez encore d'autres idées pour m'améliorer, n'hésitez pas.`)
-        msg.react('✅');
+        message.react('✅');
     };
     // refused
-    if (msg.content.toLowerCase().startsWith(prefix + "ref")) {
-        if (msg.author.id !== "448052818314526721" || msg.author.id !== "278211495915945985") return;
-        const arg = msg.content.slice(prefix.length).split(' ');
+    if (message.content.toLowerCase().startsWith(prefix + "ref")) {
+        if (message.author.id !== "448052818314526721" || message.author.id !== "278211495915945985") return;
+        const arg = message.content.slice(prefix.length).split(' ');
         sug = ""
         for (let i7 = 2; i7 < arg.length; i7++) {
             if (i7 === 2) {
@@ -233,57 +233,57 @@ client.on('message', msg => {
         }
         let jules = client.users.cache.get('448052818314526721')
         let remi = client.users.cache.get('278211495915945985')
-        jules.send(`🎭 Vous avez refusé la suggestion de ${msg.author} : ${sug}`)
-        remi.send(`🎭 Vous avez refusé la suggestion de ${msg.author} : ${sug}`)
+        jules.send(`🎭 Vous avez refusé la suggestion de ${message.author} : ${sug}`)
+        remi.send(`🎭 Vous avez refusé la suggestion de ${message.author} : ${sug}`)
         const personne = client.users.cache.get(`${arg[1]}`)
         personne.send(`😔 Malheureusement, votre suggestion ("${sug}") n'a pas été retenue... Si jamais vous avez d'autres idées pour m'améliorer, sachez que je suis toujours à l'écoute.`)
-        msg.react('✅');
+        message.react('✅');
     };
 
     // colors
-    if (msg.channel.id === "733296042644078603") {
-        if (msg.author.bot) return;
+    if (message.channel.id === "733296042644078603") {
+        if (message.author.bot) return;
         // data
         colors = ["bleu", "vert", "jaune", "orange", "rouge", "violet", "marron", "noir", "gris", "blanc"]
         colorsid = ["733636576495796246", "733984655174533190", "733984922221412374", "733985126261850112", "733985317828296724", "733985435738570782", "733985518190067772", "733991735293902849", "733991824129130578", "733991976260730942"]
             // main
         test = 0
         for (let i4 = 0; i4 < colors.length; i4++) {
-            if (msg.content.toLowerCase().startsWith(colors[i4])) {
-                msg.delete({
+            if (message.content.toLowerCase().startsWith(colors[i4])) {
+                message.delete({
                     timeout: 100
                 })
                 test = 1
-                    //let RoleCouleur = msg.guild.roles.cache.find(role => role.name === colors[i4]);
-                msg.member.roles.add(colorsid[i4]);
-                msg.channel.send(`➕ Je vous ai donné votre rôle de couleur ${colors[i4]} ${msg.author} !`).then(msgb => {
-                    msgb.delete({
+                    //let RoleCouleur = message.guild.roles.cache.find(role => role.name === colors[i4]);
+                message.member.roles.add(colorsid[i4]);
+                message.channel.send(`➕ Je vous ai donné votre rôle de couleur ${colors[i4]} ${message.author} !`).then(messageb => {
+                    messageb.delete({
                         timeout: 5000
                     })
                 })
             }
         }
         if (test === 0) {
-            if (msg.content.toLowerCase().startsWith(prefix + "reset") || msg.content.toLowerCase().startsWith("reset")) {
-                msg.delete({
+            if (message.content.toLowerCase().startsWith(prefix + "reset") || message.content.toLowerCase().startsWith("reset")) {
+                message.delete({
                     timeout: 100
                 })
                 for (let i3 = 0; i3 < colors.length; i3++) {
-                    if (msg.member.roles.cache.find(r => r.id === colorsid[i3])) {
-                        msg.member.roles.remove(colorsid[i3]);
-                        msg.channel.send(`➖ Je vous ai retiré le rôle de couleur ${colors[i3]} ${msg.author} !`).then(msgb => {
-                            msgb.delete({
+                    if (message.member.roles.cache.find(r => r.id === colorsid[i3])) {
+                        message.member.roles.remove(colorsid[i3]);
+                        message.channel.send(`➖ Je vous ai retiré le rôle de couleur ${colors[i3]} ${message.author} !`).then(messageb => {
+                            messageb.delete({
                                 timeout: 5000
                             })
                         })
                     }
                 }
             } else {
-                msg.delete({
+                message.delete({
                     timeout: 100
                 })
-                msg.channel.send(`⁉️ Je ne reconnais pas la couleur que vous nommez "${msg.content}"...`).then(msgb => {
-                    msgb.delete({
+                message.channel.send(`⁉️ Je ne reconnais pas la couleur que vous nommez "${message.content}"...`).then(messageb => {
+                    messageb.delete({
                         timeout: 5000
                     })
                 })
