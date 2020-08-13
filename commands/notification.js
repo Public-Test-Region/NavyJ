@@ -2,18 +2,10 @@ module.exports = {
     name: 'notification',
     description: 'Active le système de notification pour vous informer.',
     guildOnly: true,
-    execute(message, jeuxgratuits) {
+    execute(message, notif) {
         const args = message.content.slice(prefix.length).split(' ');
         if (args[1] === "JeuxG") {
-            if (!jeuxgratuits[message.author.id]) {
-                message.channel.send("C'est fait !")
-                jeuxgratuits[message.author.id] = 1
-                fs.writeFile("./config/data/jeuxgratuits.json", JSON.stringify(vote), err => {
-                    if (err) throw err;
-                });
-            } else {
-                message.channel.send("C'est déjà fait ! ;)")
-            }
+            notif(JeuxG)
         } else {
             message.channel.send({
                 embed: {

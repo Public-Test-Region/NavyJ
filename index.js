@@ -45,6 +45,27 @@ function getUserFromMention(mention) {
     }
 }
 
+// notificaitons
+function notif(type) {
+    if (type === "JeuxG") {
+        if (!jeuxgratuits[message.author.id]) {
+            jeuxgratuits[message.author.id] = 1
+            fs.writeFile("./config/data/jeuxgratuits.json", JSON.stringify(vote), err => {
+                if (err) throw err;
+            });
+            msg.channel.send("Je vous l'ai activé !")
+        } else {
+            jeuxgratuits[message.author.id] = 0
+            fs.writeFile("./config/data/jeuxgratuits.json", JSON.stringify(vote), err => {
+                if (err) throw err;
+            });
+            msg.channel.send("Je vous l'ai désactivé !")
+        }
+    } else { // type === "Jeux"
+        // prochainement
+    }
+}
+
 client.on('message', msg => {
     if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
