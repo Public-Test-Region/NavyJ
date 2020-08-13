@@ -135,8 +135,8 @@ client.on('message', message => {
 
     // help
     if (message.content.toLowerCase().startsWith(prefix + "help") || message.content.toLowerCase().startsWith(prefix + "aide")) {
-        const args = message.content.slice(prefix.length).split(' ');
-        if (!args[1]) {
+        const arg = message.content.slice(prefix.length).split(' ');
+        if (!arg[1]) {
             message.channel.send({
                 embed: {
                     color: RdmColor,
@@ -162,7 +162,7 @@ client.on('message', message => {
                     }
                 }
             })
-        } else if (args[1].toLowerCase().startsWith("not")) {
+        } else if (arg[1].toLowerCase().startsWith("not")) {
             message.channel.send({
                 embed: {
                     color: RdmColor,
