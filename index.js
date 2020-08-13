@@ -46,7 +46,7 @@ function getUserFromMention(mention) {
 }
 
 // notificaitons
-function notif(type) {
+function notific(type) {
     if (type === "JeuxG") {
         if (!jeuxgratuits[message.author.id]) {
             jeuxgratuits[message.author.id] = 1
@@ -91,7 +91,7 @@ client.on('message', msg => {
     }
 
     try {
-        command.execute(msg, args, notif(), prefix);
+        command.execute(msg, args, notific, prefix);
     } catch (error) {
         console.error(error);
         msg.reply("Il y a eu une erreur en essayant d'exécuter cette commande !");

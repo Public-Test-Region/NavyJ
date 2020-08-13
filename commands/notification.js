@@ -2,10 +2,10 @@ module.exports = {
     name: 'notification',
     description: 'Active le système de notification pour vous informer.',
     guildOnly: true,
-    execute(message, args, notif) {
+    execute(message, args, prefix, notific) {
         const args = message.content.slice(prefix.length).split(' ');
         if (args[1] === "JeuxG") {
-            notif(JeuxG)
+            notific(JeuxG)
         } else {
             message.channel.send({
                 embed: {
