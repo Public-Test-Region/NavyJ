@@ -2,7 +2,7 @@ module.exports = {
     name: 'notification',
     description: 'Active le système de notification pour vous informer.',
     guildOnly: true,
-    execute(message, args, prefix, notific) {
+    execute(message, args, prefix) {
         const args = message.content.slice(prefix.length).split(' ');
         if (args[1] === "JeuxG") {
             notific(JeuxG)
