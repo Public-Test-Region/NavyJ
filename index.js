@@ -9,8 +9,8 @@ client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
+    const command = require(`./commands/${file}`);
+    client.commands.set(command.name, command);
 }
 
 client.on('ready', () => {
@@ -46,40 +46,40 @@ function getUserFromMention(mention) {
 }
 
 client.on('message', msg => {
-  if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+    if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
-  const args = msg.content.slice(prefix.length).split(/ +/);
-  const commandName = args.shift().toLowerCase();
+    const args = msg.content.slice(prefix.length).split(/ +/);
+    const commandName = args.shift().toLowerCase();
 
-  if (!client.commands.has(commandName)) return;
+    if (!client.commands.has(commandName)) return;
 
-  const command = client.commands.get(commandName);
+    const command = client.commands.get(commandName);
 
-  if (command.guildOnly && msg.channel.type !== 'text') {
-    return msg.reply('Je ne peux pas éxecuter cette commande dans les messages privés !');
-  }
-
-  if (command.args && !args.length) {
-    let reply = `Vous n'avez fourni aucun argument, ${msg.author}!`;
-    if (command.usage) {
-      reply += `\nL'usage approprié serait : \`${prefix}${command.name} ${command.usage}\``;
+    if (command.guildOnly && msg.channel.type !== 'text') {
+        return msg.reply('Je ne peux pas éxecuter cette commande dans les messages privés !');
     }
 
-    return msg.channel.send(reply);
-  }
+    if (command.args && !args.length) {
+        let reply = `Vous n'avez fourni aucun argument, ${msg.author}!`;
+        if (command.usage) {
+            reply += `\nL'usage approprié serait : \`${prefix}${command.name} ${command.usage}\``;
+        }
 
-  try {
-    command.execute(msg, args);
-  } catch (error) {
-    console.error(error);
-    msg.reply("Il y a eu une erreur en essayant d'exécuter cette commande !");
-  }
+        return msg.channel.send(reply);
+    }
+
+    try {
+        command.execute(msg, args);
+    } catch (error) {
+        console.error(error);
+        msg.reply("Il y a eu une erreur en essayant d'exécuter cette commande !");
+    }
 });
 
 client.on('message', msg => {
-  if (msg.content === `${prefix}`) {
-    msg.channel.send(`Votre commande n'est pas inscrite dans le fichier des sudoers. Cet incident sera signalé.`);
-  }
+    if (msg.content === `${prefix}`) {
+        msg.channel.send(`Votre commande n'est pas inscrite dans le fichier des sudoers. Cet incident sera signalé.`);
+    }
 });
 
 
@@ -110,56 +110,6 @@ client.on('message', msg => {
             };
         };
     };
-
-    // help
-    if (msg.content.toLowerCase().startsWith(prefix + "help") || msg.content.toLowerCase().startsWith(prefix + "aide")) {
-        const args = msg.content.slice(prefix.length).split(' ');
-        if (!args[1]) {
-            msg.channel.send({
-                embed: {
-                    color: RdmColor,
-                    thumbnail: {
-                        url: "https://i.imgur.com/NN9dwjx.png"
-                    },
-                    author: {
-                        name: msg.guild.name + " | Commande d'aide",
-                        icon_url: msg.guild.iconURL()
-                    },
-                    title: "Voici la liste de mes commandes !\n­",
-                    fields: [{
-                        name: "`" + prefix + "suggestion [votre suggestion]`",
-                        value: "Vous permet de faire une suggestion.\nVous pouvez aussi taper " + prefix + "s [suggestion]\n­"
-                    }, {
-                        name: "`" + prefix + "reset`",
-                        value: "Permet de réinitialiser vos rôles de couleurs\n(Uniquement dans le salon <#733296042644078603>)\n­"
-                    }],
-                    timestamp: new Date(),
-                    footer: {
-                        icon_url: msg.author.avatarURL(),
-                        text: "Demande d'aide demandé par " + msg.author.tag
-                    }
-                }
-            })
-        } else if (args[1].toLowerCase() === "jeux" || args[1].toLowerCase() === "jeu") {
-            msg.channel.send({
-                embed: {
-                    color: RdmColor,
-                    author: { name: msg.guild.name + " | Commande de jeux (" + prefix + "jeux)\n­" },
-                    title: "Malheureusement cette commande est encore en cours de développement, merci de patienter !\n­",
-                    timestamp: new Date(),
-                    footer: {
-                        icon_url: msg.author.avatarURL,
-                        text: "Demande d'aide demandé par " + msg.author.tag
-                    }
-                }
-            })
-        }
-    };
-
-    // jeux
-    if (msg.content.toLowerCase().startsWith(prefix + "j")) {
-
-    }
 
     // suggestion
     if (msg.content.toLowerCase().startsWith(prefix + "s")) {
