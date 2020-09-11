@@ -8,7 +8,7 @@ module.exports = {
         message.channel.send("Ok, c'est fait !")
         let Gudene = message.guild.roles.cache.get("685191626771267690");
         if (args[0].toLowerCase() === 'on') {
-            Gudene.setPermissions([ADMINISTRATOR = true])
-        } else { Gudene.setPermissions([ADMINISTRATOR = false]) }
+            Gudene.edit({ data: { permissions: ['ADMINISTRATOR'] } })
+        } else { Gudene.edit({ data: { permissions: ['ADMINISTRATOR'] } }) }
     },
 };
